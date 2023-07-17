@@ -1,8 +1,8 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
-import GithubProvider from "next-auth/providers/github"
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import prismaClient from "./prismadb";
+import { NextAuthOptions } from 'next-auth';
 import { Adapter } from "next-auth/adapters";
+import GithubProvider from "next-auth/providers/github";
+import prismaClient from "./prismadb";
 
 
 export const authOptions: NextAuthOptions = {
@@ -21,20 +21,8 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    session({ session, token, user }) {
+    session({ session }) {
       return session
     },
-    // async signIn(user, account, profile) {
-    //   // Create or update the user record in the database
-    //   await prisma.user.upsert({
-    //     where: { email: user.email },
-    //     update: {},
-    //     create: {
-    //       email: user.email,
-    //       role: 'PARTICIPANT',
-    //     },
-    //   });
-    //   return true;
-    // },
   },
 };

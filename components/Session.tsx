@@ -7,7 +7,6 @@ export default function ProtectedPage() {
 
   if (!session) {
     return (
-
       <div>
         <button onClick={() => signIn("github")}>Github Login</button>
         <p>Please sign in to access this page.</p>
