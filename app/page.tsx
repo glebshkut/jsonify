@@ -1,9 +1,9 @@
-import Image from 'next/image'
+"use client"
+import Session from "@/components/Session"
 
-export default function Home() {
+export default function IndexPage() {
+
   return (
-    <main className="h-screen">
-      JSONify!
-    </main>
+    <Session />
   )
 }
