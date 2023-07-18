@@ -1,10 +1,14 @@
 import { Role } from "@/lib/types";
-import { Portal } from "./Portal";
+import { Portal } from "@/components/helpers/Portal";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
+interface RoleModalProps {
+  setRoleModalOpen: (open: boolean) => void;
+}
 
-const RoleModal = () => {
+const RoleModal = (props: RoleModalProps) => {
+  const { setRoleModalOpen } = props;
   const { data: session } = useSession();
 
   const handleRoleChange = (role: Role) => {
@@ -15,6 +19,7 @@ const RoleModal = () => {
       .then((res) => {
         console.log(`Role updated to ${role}`, res.data.user)
       })
+    setRoleModalOpen(false);
   }
 
   return (

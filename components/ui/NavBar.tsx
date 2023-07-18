@@ -23,7 +23,7 @@ export default function NavBar() {
         <div className="flex flex-row justify-center gap-3">
           <button onClick={handleRoleClick} className="text-white hover:text-stone-200"><CgProfile size="2em" /></button>
           <button onClick={() => signOut()} className="text-white hover:text-stone-200"><BiExit size="2em" /></button>
-          {roleModal && <RoleModal />}
+          {roleModal && <RoleModal setRoleModalOpen={setRoleModalOpen} />}
         </div>
         :
         <>
