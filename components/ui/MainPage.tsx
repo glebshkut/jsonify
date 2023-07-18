@@ -1,13 +1,16 @@
+import { useAppDispatch, useAppSelector } from '@/components/store/hooks';
+import { userActions } from "@/components/store/userSlice";
 import { User } from "@/lib/types";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BsGithub } from "react-icons/bs";
 
 export default function MainPage() {
   const { data: session } = useSession();
-
-  const [user, setUser] = useState<User>();
+  const role = useAppSelector((state) => state.user.authData?.role)
+  const dispatch = useAppDispatch();
+  const { setAuthData } = userActions;
 
   useEffect(() => {
     const getUserInfo = (email: User["email"]) => {
@@ -15,15 +18,14 @@ export default function MainPage() {
         email: email,
       })
         .then((res) => {
-          console.log(`User received`, res.data.user)
-          setUser(res.data.user);
+          dispatch(setAuthData(res.data.user));
         })
     };
 
     if (session?.user?.email) {
       getUserInfo(session?.user?.email);
     }
-  }, [session]);
+  }, [dispatch, session, setAuthData]);
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-5" style={{ height: "calc(100vh - var(--navbar-height))" }}>
@@ -35,7 +37,7 @@ export default function MainPage() {
         :
         <>
           <p className="text-xl">Welcome {session.user?.name}!</p>
-          {user && <p>Your role is {user.role}</p>}
+          {role && <p>Your role is {role}</p>}
         </>
       }
     </div>

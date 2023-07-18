@@ -2,7 +2,8 @@ import { Role } from "@/lib/types";
 import { Portal } from "@/components/helpers/Portal";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-
+import { useAppDispatch, useAppSelector } from '@/components/store/hooks';
+import { userActions } from "@/components/store/userSlice";
 interface RoleModalProps {
   setRoleModalOpen: (open: boolean) => void;
 }
@@ -10,6 +11,9 @@ interface RoleModalProps {
 const RoleModal = (props: RoleModalProps) => {
   const { setRoleModalOpen } = props;
   const { data: session } = useSession();
+  const currentRole = useAppSelector((state) => state.user.authData?.role)
+  const dispatch = useAppDispatch();
+  const { updateUserRole } = userActions;
 
   const handleRoleChange = (role: Role) => {
     axios.post("/api/updateRole", {
@@ -17,7 +21,7 @@ const RoleModal = (props: RoleModalProps) => {
       role: role
     })
       .then((res) => {
-        console.log(`Role updated to ${role}`, res.data.user)
+        dispatch(updateUserRole(res.data.user))
       })
     setRoleModalOpen(false);
   }
@@ -33,6 +37,7 @@ const RoleModal = (props: RoleModalProps) => {
                 key={role}
                 onClick={() => handleRoleChange(role as Role)}
                 className="border-2 border-white rounded-full px-5 py-2 my-2 hover:bg-white hover:text-black"
+                style={{ textDecoration: role === currentRole ? "underline" : "none" }}
               >{role}</button>
             )
           }

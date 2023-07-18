@@ -9,13 +9,9 @@ export default function NavBar() {
   const { data: session } = useSession();
   const [roleModal, setRoleModalOpen] = useState(false);
 
-
   const handleRoleClick = () => {
     setRoleModalOpen(true);
   }
-
-  console.log("session", session?.user)
-
 
   return (
     <div className="bg-blue-500 flex flex-col items-end justify-around pr-5" style={{ height: "var(--navbar-height)" }}>

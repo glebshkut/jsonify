@@ -2,10 +2,16 @@
 import React from 'react';
 
 import { SessionProvider as AuthSessionProvider } from 'next-auth/react';
+import { Provider } from "react-redux";
+import store from "@/components/store/store";
 
 const SessionProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AuthSessionProvider>{children}</AuthSessionProvider>
+    <AuthSessionProvider>
+      <Provider store={store}>
+        {children}
+      </Provider>
+    </AuthSessionProvider>
   )
 }
 
