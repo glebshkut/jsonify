@@ -29,17 +29,12 @@ export default function Home() {
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
-          console.log("Files: ", res);
-          console.log("Upload Completed");
-
           axios.post("/api/imageUploader", {
             userId,
             files: res,
           })
             .then((res) => {
-              // Show success message
               setUploadData(res.data)
-              console.log(res);
             });
         }}
         onUploadError={(error: Error) => {
