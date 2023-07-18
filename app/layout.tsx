@@ -1,9 +1,10 @@
 import SessionProvider from "@/components/helpers/SessionProvider";
+import NavBar from "@/components/ui/NavBar";
+import "@uploadthing/react/styles.css";
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from "react";
 import './globals.css';
-import NavBar from "@/components/ui/NavBar";
 
 const inter = Inter({ subsets: ['latin'] })
 

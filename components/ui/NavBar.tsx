@@ -6,17 +6,7 @@ import { BsGithub } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import RoleModal from "./RoleModal";
 import Link from "next/link";
-
-const pages = [
-  {
-    name: "Home",
-    path: "/",
-  },
-  {
-    name: "Upload",
-    path: "/upload",
-  },
-]
+import { routes } from "@/lib/routes";
 
 export default function NavBar() {
   const { data: session } = useSession();
@@ -26,15 +16,12 @@ export default function NavBar() {
     setRoleModalOpen(true);
   }
 
-  const headerLinks = pages.map((page) => {
-    return <Link
-      href={page.path}
-      key={page.name}
-      className="hover:underline"
-    >
-      {page.name}
+  const headerLinks = Object.entries(routes).map(([page, value]) => (
+    <Link href={value.path} key={page} className="hover:underline">
+      {page}
     </Link>
-  });
+  ));
+
 
   return (
     <div className="bg-blue-500 flex flex-row justify-between items-center px-5" style={{ height: "var(--navbar-height)" }}>
