@@ -1,9 +1,13 @@
 "use client"
-import Session from "@/components/Session"
+import MainPage from "@/components/ui/MainPage"
+import NavBar from "@/components/ui/NavBar"
 
 export default function IndexPage() {
 
   return (
-    <Session />
+    <>
+      <NavBar />
+      <MainPage />
+    </>
   )
 }

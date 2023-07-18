@@ -5,5 +5,8 @@
     "next": {
       "rootDir": "./"
     }
+  },
+  "rules": {
+    "no-unused-vars": "warn"
   }
 }
