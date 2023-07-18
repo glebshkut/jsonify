@@ -4,6 +4,9 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from '@/components/store/hooks';
 import { userActions } from "@/components/store/userSlice";
+import { getUserRole } from "@/components/selectors/getUserRole";
+import { useOnClickOutside } from 'usehooks-ts'
+import { useRef } from "react";
 interface RoleModalProps {
   setRoleModalOpen: (open: boolean) => void;
 }
@@ -11,9 +14,16 @@ interface RoleModalProps {
 const RoleModal = (props: RoleModalProps) => {
   const { setRoleModalOpen } = props;
   const { data: session } = useSession();
-  const currentRole = useAppSelector((state) => state.user.authData?.role)
+  const currentRole = useAppSelector(getUserRole)
   const dispatch = useAppDispatch();
   const { updateUserRole } = userActions;
+
+  const closeModal = () => {
+    setRoleModalOpen(false);
+  }
+
+  const ref = useRef(null)
+  useOnClickOutside(ref, closeModal)
 
   const handleRoleChange = (role: Role) => {
     axios.post("/api/updateRole", {
@@ -23,12 +33,13 @@ const RoleModal = (props: RoleModalProps) => {
       .then((res) => {
         dispatch(updateUserRole(res.data.user))
       })
-    setRoleModalOpen(false);
+    closeModal();
   }
+
 
   return (
     <Portal>
-      <div className="absolute flex flex-col items-center py-5 h-fit w-fit px-10 rounded-xl top-0 bottom-0 left-0 right-0 m-auto bg-black text-white">
+      <div ref={ref} className="absolute flex flex-col items-center py-5 h-fit w-fit px-10 rounded-xl top-0 bottom-0 left-0 right-0 m-auto bg-black text-white">
         <p className="text-3xl">Choose role</p>
         <div className="flex flex-col text-xl">
           {Object.keys(Role).map((role) => {

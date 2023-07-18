@@ -1,5 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userSlice } from "./userSlice";
+import { UserStateSchema, userSlice } from "./userSlice";
+
+export interface StoreSchema {
+  user: UserStateSchema;
+}
 
 const store = configureStore({
   reducer: {

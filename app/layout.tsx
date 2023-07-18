@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from "react";
 import './globals.css';
+import NavBar from "@/components/ui/NavBar";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="h-screen">
           <SessionProvider>
-            {children}
+            <NavBar />
+            <div style={{ height: "calc(100vh - var(--navbar-height))" }}>
+              {children}
+            </div>
           </SessionProvider>
         </div>
       </body>
