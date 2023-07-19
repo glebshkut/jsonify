@@ -1,6 +1,6 @@
 'use client';
 
-import { UploadedFile } from "@/lib/types";
+import { UploadedFile } from "@prisma/client";
 import axios from "axios";
 import fileDownload from "js-file-download";
 

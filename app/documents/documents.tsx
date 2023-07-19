@@ -1,8 +1,10 @@
 import DocumentsList from './DocumentsList';
+import { PrismaClient, UploadedFile } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export default async function Documents() {
-
-  const data = await getData();
+  const data: UploadedFile[] = await getData();
 
   return (
     <div className="container mx-auto">
@@ -13,13 +15,13 @@ export default async function Documents() {
 }
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/getDocuments");
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  };
-
-  const { files } = await res.json();
+  const files = await prisma.uploadedFile.findMany({
+    orderBy: [
+      {
+        uploadedAt: 'desc',
+      },
+    ],
+  });
 
   if (!files) {
     throw new Error('Failed to receive files')

@@ -1,4 +1,4 @@
-import { User } from "@/lib/types";
+import { User } from "@prisma/client";
 import { DeepPartial, PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface UserStateSchema {

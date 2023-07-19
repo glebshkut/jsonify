@@ -3,7 +3,7 @@
 import { getUserRole } from "@/components/selectors/getUserRole";
 import { useAppDispatch, useAppSelector } from '@/components/store/hooks';
 import { userActions } from "@/components/store/userSlice";
-import { User } from "@/lib/types";
+import { User } from "@prisma/client";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";

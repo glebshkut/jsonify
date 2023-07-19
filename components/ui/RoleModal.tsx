@@ -39,7 +39,7 @@ const RoleModal = (props: RoleModalProps) => {
 
   return (
     <Portal>
-      <div ref={ref} className="absolute flex flex-col items-center py-5 h-fit w-fit px-10 rounded-xl top-0 bottom-0 left-0 right-0 m-auto bg-black text-white">
+      <div ref={ref} className="z-30 absolute flex flex-col items-center py-5 h-fit w-fit px-10 rounded-xl top-0 bottom-0 left-0 right-0 m-auto bg-black text-white">
         <p className="text-3xl">Choose role</p>
         <div className="flex flex-col text-xl">
           {Object.keys(Role).map((role) => {

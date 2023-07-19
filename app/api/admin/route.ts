@@ -10,20 +10,19 @@ export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions)
 
-    if (!session?.user) {
+    if (!session?.user?.email) {
       return new Response(JSON.stringify({ message: "You are not authenticated" }), { status: 403 });
     }
 
-    const response = await fetch(`http://localhost:3000/api/getUser`, {
-      method: "POST",
-      body: JSON.stringify({ email: session.user.email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const userData = await prisma.user.findUnique({
+      where: { email: session.user.email },
     });
 
-    const data = await response.json();
-    if (data.user.role !== Role.ADMIN) {
+    if (!userData) {
+      return new Response(JSON.stringify({ message: "Database error occured, try again" }), { status: 403 });
+    }
+
+    if (userData.role !== Role.ADMIN) {
       return new Response(JSON.stringify({ message: "You are not an admin" }), { status: 403 });
     }
 
