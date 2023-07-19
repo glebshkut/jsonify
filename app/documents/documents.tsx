@@ -1,34 +1,13 @@
-import { UploadedFile } from "@/lib/types";
-import axios from "axios";
-import fileDownload from "js-file-download";
+import DocumentsList from './DocumentsList';
 
 export default async function Documents() {
-  const data = await getData();
 
-  const handleDownload = (url: string, filename: string) => {
-    axios.get(url, {
-      responseType: 'blob',
-    })
-      .then((res) => {
-        fileDownload(res.data, filename)
-      })
-  }
+  const data = await getData();
 
   return (
     <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Documents</h1>
-      <ul>
-        {data.map((document: UploadedFile) => (
-          <li key={document.id}>
-            <a href={document.path} className="text-blue-500 underline">
-              {document.filename}
-            </a>
-            <button onClick={() => handleDownload(document.path, document.filename)}>
-              Download
-            </button>
-          </li>
-        ))}
-      </ul>
+      <DocumentsList data={data} />
     </div>
   );
 }

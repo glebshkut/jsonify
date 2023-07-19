@@ -5,7 +5,7 @@ import { SessionProvider as AuthSessionProvider } from 'next-auth/react';
 import { Provider } from "react-redux";
 import store from "@/components/store/store";
 
-const SessionProvider = ({ children }: { children: React.ReactNode }) => {
+const WrapperProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthSessionProvider>
       <Provider store={store}>
@@ -15,4 +15,4 @@ const SessionProvider = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default SessionProvider
+export default WrapperProvider

@@ -1,4 +1,4 @@
-import SessionProvider from "@/components/helpers/SessionProvider";
+import Provider from "@/components/helpers/WrapperProvider";
 import NavBar from "@/components/ui/NavBar";
 import "@uploadthing/react/styles.css";
 import type { Metadata } from 'next';
@@ -22,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="h-screen">
-          <SessionProvider>
+          <Provider>
             <NavBar />
             <div style={{ height: "calc(100vh - var(--navbar-height))" }}>
               {children}
             </div>
-          </SessionProvider>
+          </Provider>
         </div>
       </body>
     </html>
