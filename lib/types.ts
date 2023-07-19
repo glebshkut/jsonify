@@ -11,3 +11,11 @@ export interface User {
   email: string;
   image?: string;
 }
+
+export interface UploadedFile {
+  id: number;
+  filename: string;
+  path: string;
+  uploadedAt: string;
+  userId: string;
+}

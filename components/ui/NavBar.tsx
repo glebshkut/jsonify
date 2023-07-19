@@ -7,19 +7,24 @@ import { CgProfile } from "react-icons/cg";
 import RoleModal from "./RoleModal";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
+import { useAppSelector } from "@/components/store/hooks";
+import { getUserRole } from "@/components/selectors/getUserRole";
 
 export default function NavBar() {
   const { data: session } = useSession();
   const [roleModal, setRoleModalOpen] = useState(false);
+  const role = useAppSelector(getUserRole)
 
   const handleRoleClick = () => {
     setRoleModalOpen(true);
   }
 
   const headerLinks = Object.entries(routes).map(([page, value]) => (
-    <Link href={value.path} key={page} className="hover:underline">
-      {page}
-    </Link>
+    session && role && (!value.role || role === value.role) && (
+      <Link href={value.path} key={page} className="hover:underline">
+        {page}
+      </Link>
+    )
   ));
 
 
