@@ -25,7 +25,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-10 p-24">
+    <main className="flex h-full flex-col items-center justify-center gap-10 p-24 dark:text-white">
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
