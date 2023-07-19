@@ -18,10 +18,10 @@ const ThemeSwitcher = () => {
 
   return (
     <>
-      {theme === "light" ?
-        <button onClick={() => setTheme("dark")}><Icon Icon={MdDarkMode} className="animate-pulse" /></button>
-        :
+      {theme === "dark" ?
         <button onClick={() => setTheme("light")}><Icon Icon={MdLightMode} className="animate-pulse" /></button>
+        :
+        <button onClick={() => setTheme("dark")}><Icon Icon={MdDarkMode} className="animate-pulse" /></button>
       }
     </>
   );
