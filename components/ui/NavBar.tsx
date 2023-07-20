@@ -11,7 +11,8 @@ import { useMemo, useState } from "react";
 import { BiExit } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
-import RoleModal from "./RoleModal";
+import RoleModal from "@/components/ui/RoleModal";
+import Skeleton from "@/components/ui/Skeleton";
 
 export default function NavBar() {
   const { data: session, status } = useSession();
@@ -33,12 +34,21 @@ export default function NavBar() {
   ));
 
   if (status === "loading") {
-    <div className="bg-blue-500 dark:bg-blue-800 flex flex-row justify-between items-center px-5" style={{ height: "var(--navbar-height)" }}>
-      <div className="flex flex-row items-center gap-5 text-white">
+    return (
+      <div className="bg-blue-500 dark:bg-blue-800 flex flex-row justify-between items-center px-5" style={{ height: "var(--navbar-height)" }}>
+        <div className="flex flex-row items-center gap-5 text-white">
+          <Skeleton width="50px" height="20px" border="5px" />
+          <Skeleton width="60px" height="20px" border="5px" />
+          <Skeleton width="90px" height="20px" border="5px" />
+        </div>
+        <div className="flex flex-row items-center justify-center gap-5">
+          <Skeleton width="32px" height="32px" />
+          <Skeleton width="32px" height="32px" />
+          <Skeleton width="32px" height="32px" />
+          <Skeleton width="32px" height="32px" />
+        </div>
       </div>
-      <div className="flex flex-row items-center justify-center gap-5">
-      </div>
-    </div>
+    )
   }
 
   return (

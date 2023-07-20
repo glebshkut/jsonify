@@ -1,4 +1,5 @@
 "use client"
+import Skeleton from "@/components/ui/Skeleton";
 import { User } from "@prisma/client";
 import { signIn, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -12,7 +13,12 @@ export default function MainPage() {
   const tRole = useTranslations('role');
 
   if (status === "loading") {
-    return <p>Loading....</p>;
+    return (
+      <div className="h-full flex flex-col justify-center items-center gap-5">
+        <Skeleton width="300px" height="40px" border="10px" />
+        <Skeleton width="200px" height="30px" border="10px" />
+      </div>
+    )
   }
 
 

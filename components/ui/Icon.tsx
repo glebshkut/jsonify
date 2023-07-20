@@ -13,7 +13,7 @@ export default function Icon(props: IconProps) {
     Icon,
     size = "2em",
     onClick,
-    className
+    className = ""
   } = props;
 
   return (

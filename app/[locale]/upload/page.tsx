@@ -10,6 +10,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import "./upload.css";
 import { useTranslations } from "next-intl";
+import Skeleton from "@/components/ui/Skeleton";
 
 interface UploadDataInterface {
   message: string;
@@ -38,7 +39,12 @@ export default function UploadPage() {
   }, [status, session]);
 
   if (status === "loading") {
-    return <p>Loading....</p>;
+    return (
+      <main className="flex h-full flex-col items-center justify-center gap-1">
+        <Skeleton width="144px" height="40px" border="0.375rem" />
+        <Skeleton width="93px" height="20px" border="3px" />
+      </main>
+    )
   }
 
   return (

@@ -26,7 +26,7 @@ export default function DocumentsList({ data }: Props) {
       <Link href={document.path} target="_blank" className="underline text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
         {document.filename}
       </Link>
-      <button onClick={() => handleDownload(document.path, document.filename)}>
+      <button className="hover:underline" onClick={() => handleDownload(document.path, document.filename)}>
         {t("download")}
       </button>
     </li>
