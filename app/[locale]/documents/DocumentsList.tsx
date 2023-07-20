@@ -41,7 +41,3 @@ export default function DocumentsList({ data }: Props) {
     </div>
   );
 }
-function useTranslation(arg0: string): { t: any; } {
-  throw new Error("Function not implemented.");
-}
-
