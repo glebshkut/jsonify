@@ -8,8 +8,10 @@ import { AppRoutes, RoutePath } from "@/lib/routes";
 import { Role } from "@/lib/types";
 import { getUserId } from "@/components/selectors/getUserId";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useGetUserInfo } from "@/components/store/hooks/useGetUserInfo";
 
 interface UploadDataInterface {
   message: string;
@@ -18,9 +20,16 @@ interface UploadDataInterface {
 
 export default function Home() {
   const [uploadData, setUploadData] = useState<UploadDataInterface>();
+  const [isLoading, setIsLoading] = useState(true);
+  const { data: session } = useSession();
+
+  useGetUserInfo(session, () => {
+    setIsLoading(false);
+  });
+
   const currentRole = useAppSelector(getUserRole);
   const userId = useAppSelector(getUserId);
-  if (currentRole !== Role.ADMIN) {
+  if (!isLoading && currentRole !== Role.ADMIN) {
     redirect(RoutePath[AppRoutes.HOME]);
   }
 

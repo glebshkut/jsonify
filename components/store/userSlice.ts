@@ -6,6 +6,9 @@ export interface UserStateSchema {
 }
 
 const initialState: DeepPartial<UserStateSchema> = {
+  authData: {
+    role: undefined,
+  }
 };
 
 export const userSlice = createSlice({
