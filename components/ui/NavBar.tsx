@@ -10,24 +10,35 @@ import { BiExit } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import RoleModal from "./RoleModal";
+import { useTranslations } from "next-intl";
+import LocaleSwitcher from "@/components/helpers/LocaleSwitcher";
 
 export default function NavBar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const user = useMemo(() => session?.user as User, [session]);
   const role = useMemo(() => user?.role, [user]);
   const [roleModal, setRoleModalOpen] = useState(false);
+  const t = useTranslations("navbar");
 
   const handleRoleClick = () => {
     setRoleModalOpen(true);
   }
 
   const headerLinks = Object.entries(routes).map(([page, value]) => (
-    session && role && (!value.role || role === value.role) && (
+    role && (!value.role || role === value.role) && (
       <Link href={value.path} key={page} className="text-white hover:text-yellow-200 dark:text-slate-400 dark:hover:text-yellow-400 hover:cursor-pointer hover:underline">
-        {page}
-      </Link>
-    )
+        {t(page)}
+      </Link>)
   ));
+
+  if (status === "loading") {
+    <div className="bg-blue-500 dark:bg-blue-800 flex flex-row justify-between items-center px-5" style={{ height: "var(--navbar-height)" }}>
+      <div className="flex flex-row items-center gap-5 text-white">
+      </div>
+      <div className="flex flex-row items-center justify-center gap-5">
+      </div>
+    </div>
+  }
 
   return (
     <div className="bg-blue-500 dark:bg-blue-800 flex flex-row justify-between items-center px-5" style={{ height: "var(--navbar-height)" }}>
@@ -36,6 +47,7 @@ export default function NavBar() {
       </div>
       <div className="flex flex-row items-center justify-center gap-5">
         <ThemeSwitcher />
+        <LocaleSwitcher />
         {session ?
           <>
             <Icon Icon={CgProfile} onClick={handleRoleClick} />

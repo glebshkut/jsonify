@@ -1,16 +1,20 @@
 "use client"
 import { User } from "@prisma/client";
 import { signIn, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { BsGithub } from "react-icons/bs";
 
 export default function MainPage() {
   const { data: session, status } = useSession();
   const user = useMemo(() => session?.user as User, [session]);
+  const t = useTranslations('home');
+  const tRole = useTranslations('role');
 
   if (status === "loading") {
     return <p>Loading....</p>;
   }
+
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-5">
@@ -21,8 +25,8 @@ export default function MainPage() {
         </>
         :
         <>
-          <p className="text-xl">Welcome {user?.name}!</p>
-          {user && <p>Your role is {user?.role}</p>}
+          <p className="text-xl">{t("welcome")} {user?.name}!</p>
+          {user && <p>{t("yourRoleIs")} {tRole(user?.role)}</p>}
         </>
       }
     </div>

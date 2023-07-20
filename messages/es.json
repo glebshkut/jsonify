@@ -1,0 +1,29 @@
+{
+  "home": {
+    "welcome": "Bienvenido",
+    "yourRoleIs": "Tu rol es"
+  },
+  "documents": {
+    "uploadedFiles": "Archivos subidos",
+    "download": "Descargar"
+  },
+  "upload": {
+    "fileUploadedMessage": "Archivo subido",
+    "viewFileMessage": "Ver archivo"
+  },
+  "navbar": {
+    "Home": "Inicio",
+    "Documents": "Documentos",
+    "Upload": "Subir"
+  },
+  "role": {
+    "chooseRole": "Elige tu rol",
+    "ADMIN": "ADMINISTRACIÓN",
+    "USER": "USUARIO",
+    "PARTICIPANT": "PARTÍCIPE"
+  },
+  "LocaleSwitcher": {
+    "label": "Idioma",
+    "locale": "{locale, select, es {Español} en {English} other {Unknown}}"
+  }
+}

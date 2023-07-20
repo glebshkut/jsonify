@@ -1,0 +1,29 @@
+{
+  "home": {
+    "welcome": "Welcome",
+    "yourRoleIs": "Your role is"
+  },
+  "documents": {
+    "uploadedFiles": "Uploaded files",
+    "download": "Download"
+  },
+  "upload": {
+    "fileUploadedMessage": "File uploaded successfully",
+    "viewFileMessage": "View file"
+  },
+  "navbar": {
+    "Home": "Home",
+    "Upload": "Upload",
+    "Documents": "Documents"
+  },
+  "role": {
+    "chooseRole": "Choose role",
+    "ADMIN": "ADMIN",
+    "USER": "USER",
+    "PARTICIPANT": "PARTICIPANT"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, es {Español} en {English} other {Unknown}}"
+  }
+}

@@ -17,7 +17,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // @ts-ignore
     session: async ({ session }) => {
-      console.log("Session Callback", { session });
       if (session.user?.email) {
         const user = await prismaClient.user.findUnique({
           where: {

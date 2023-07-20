@@ -9,6 +9,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import "./upload.css";
+import { useTranslations } from "next-intl";
 
 interface UploadDataInterface {
   message: string;
@@ -17,6 +18,7 @@ interface UploadDataInterface {
 
 export default function UploadPage() {
   const [uploadData, setUploadData] = useState<UploadDataInterface>();
+  const t = useTranslations("upload");
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -44,7 +46,7 @@ export default function UploadPage() {
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
-          axios.post("/api/imageUploader", {
+          axios.post("/api/fileUploader", {
             userId,
             files: res,
           })
@@ -57,8 +59,8 @@ export default function UploadPage() {
         }}
       />
       {uploadData && <div className="flex flex-col items-center justify-center gap-3">
-        <h1 className="text-2xl">{uploadData.message}</h1>
-        <Link className="px-3 py-1 text-lg underline text-blue-600 dark:text-blue-400 dark:hover:text-blue-300" href={uploadData.url} target="_blank">View Your File</Link>
+        <h1 className="text-2xl">{t("fileUploadedMessage")}</h1>
+        <Link className="px-3 py-1 text-lg underline text-blue-600 dark:text-blue-400 dark:hover:text-blue-300" href={uploadData.url} target="_blank">{t("viewFileMessage")}</Link>
       </div>}
     </main>
   );
