@@ -1,17 +1,17 @@
 "use client"
-import ThemeSwitcher from "@/components/helpers/ThemeSwitcher";
 import Icon from "@/components/ui/Icon";
+import LocaleSwitcher from "@/components/ui/LocaleSwitcher";
+import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
 import { routes } from "@/lib/routes";
 import { User } from "@prisma/client";
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { BiExit } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import RoleModal from "./RoleModal";
-import { useTranslations } from "next-intl";
-import LocaleSwitcher from "@/components/helpers/LocaleSwitcher";
 
 export default function NavBar() {
   const { data: session, status } = useSession();
@@ -19,6 +19,7 @@ export default function NavBar() {
   const role = useMemo(() => user?.role, [user]);
   const [roleModal, setRoleModalOpen] = useState(false);
   const t = useTranslations("navbar");
+  const locale = useLocale();
 
   const handleRoleClick = () => {
     setRoleModalOpen(true);
@@ -26,7 +27,7 @@ export default function NavBar() {
 
   const headerLinks = Object.entries(routes).map(([page, value]) => (
     role && (!value.role || role === value.role) && (
-      <Link href={value.path} key={page} className="text-white hover:text-yellow-200 dark:text-slate-400 dark:hover:text-yellow-400 hover:cursor-pointer hover:underline">
+      <Link href={(locale !== "en" ? `/${locale}` : "") + value.path} key={page} className="text-white hover:text-yellow-200 dark:text-slate-400 dark:hover:text-yellow-400 hover:cursor-pointer hover:underline">
         {t(page)}
       </Link>)
   ));

@@ -1,7 +1,9 @@
 {
   "home": {
     "welcome": "Welcome",
-    "yourRoleIs": "Your role is"
+    "yourRoleIs": "Your role is",
+    "pleaseSignIn": "Please sign in to access this page",
+    "logIn": "Log in"
   },
   "documents": {
     "uploadedFiles": "Uploaded files",

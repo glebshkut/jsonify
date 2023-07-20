@@ -1,7 +1,9 @@
 {
   "home": {
     "welcome": "Bienvenido",
-    "yourRoleIs": "Tu rol es"
+    "yourRoleIs": "Tu rol es",
+    "pleaseSignIn": "Por favor, inicia sesión",
+    "logIn": "Iniciar sesión"
   },
   "documents": {
     "uploadedFiles": "Archivos subidos",
