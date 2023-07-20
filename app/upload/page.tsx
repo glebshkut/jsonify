@@ -1,36 +1,42 @@
 "use client";
-import "./upload.css";
 import { UploadButton } from "@/components/utils/uploadthing";
-import { useAppSelector } from "@/components/store/hooks";
-import { getUserRole } from "@/components/selectors/getUserRole";
-import { redirect } from "next/navigation";
 import { AppRoutes, RoutePath } from "@/lib/routes";
 import { Role } from "@/lib/types";
-import { getUserId } from "@/components/selectors/getUserId";
+import { User } from "@prisma/client";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useGetUserInfo } from "@/components/store/hooks/useGetUserInfo";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import "./upload.css";
 
 interface UploadDataInterface {
   message: string;
   url: string;
 }
 
-export default function Home() {
+export default function UploadPage() {
   const [uploadData, setUploadData] = useState<UploadDataInterface>();
-  const [isLoading, setIsLoading] = useState(true);
-  const { data: session } = useSession();
-
-  useGetUserInfo(session, () => {
-    setIsLoading(false);
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/");
+    },
   });
+  const user = useMemo(() => session?.user as User, [session]);
+  const userId = useMemo(() => user?.id, [user]);
 
-  const currentRole = useAppSelector(getUserRole);
-  const userId = useAppSelector(getUserId);
-  if (!isLoading && currentRole !== Role.ADMIN) {
-    redirect(RoutePath[AppRoutes.HOME]);
+  useEffect(() => {
+    if (status === "authenticated") {
+      const user = session.user as User;
+      if (user.role !== Role.ADMIN) {
+        redirect(RoutePath[AppRoutes.HOME]);
+      }
+    }
+  }, [status, session]);
+
+  if (status === "loading") {
+    return <p>Loading....</p>;
   }
 
   return (

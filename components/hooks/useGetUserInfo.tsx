@@ -1,12 +1,14 @@
-import { useEffect } from "react";
 import { useAppDispatch } from "@/components/store/hooks";
 import { userActions } from "@/components/store/userSlice";
-import axios from "axios";
 import { User } from "@prisma/client";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
-export function useGetUserInfo(session: any, callback: () => void) {
+export function useGetUserInfo() {
   const dispatch = useAppDispatch();
   const { setAuthData } = userActions;
+  const { data: session } = useSession();
 
   useEffect(() => {
     const getUserInfo = async (email: User["email"]) => {
@@ -14,11 +16,10 @@ export function useGetUserInfo(session: any, callback: () => void) {
         email: email,
       });
       dispatch(setAuthData(res.data.user));
-      callback();
     };
 
     if (session?.user?.email) {
       getUserInfo(session?.user?.email);
     }
-  }, [dispatch, session, setAuthData, callback]);
+  }, [dispatch, session, setAuthData]);
 }

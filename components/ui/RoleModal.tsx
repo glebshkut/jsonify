@@ -1,22 +1,18 @@
-import { Role } from "@/lib/types";
 import { Portal } from "@/components/helpers/Portal";
+import { Role } from "@/lib/types";
+import { User } from "@prisma/client";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useAppDispatch, useAppSelector } from '@/components/store/hooks';
-import { userActions } from "@/components/store/userSlice";
-import { getUserRole } from "@/components/selectors/getUserRole";
-import { useOnClickOutside } from 'usehooks-ts'
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
+import { useOnClickOutside } from 'usehooks-ts';
 interface RoleModalProps {
   setRoleModalOpen: (open: boolean) => void;
 }
 
 const RoleModal = (props: RoleModalProps) => {
   const { setRoleModalOpen } = props;
-  const { data: session } = useSession();
-  const currentRole = useAppSelector(getUserRole)
-  const dispatch = useAppDispatch();
-  const { updateUserRole } = userActions;
+  const { data: session, update } = useSession();
+  const user = useMemo(() => session?.user as User, [session]);
 
   const closeModal = () => {
     setRoleModalOpen(false);
@@ -31,7 +27,7 @@ const RoleModal = (props: RoleModalProps) => {
       role: role
     })
       .then((res) => {
-        dispatch(updateUserRole(res.data.user))
+        update({ session: { ...session, user: res.data.user } })
       })
     closeModal();
   }
@@ -48,7 +44,7 @@ const RoleModal = (props: RoleModalProps) => {
                 key={role}
                 onClick={() => handleRoleChange(role as Role)}
                 className="border-2 border-white rounded-full px-5 py-2 hover:bg-blue-300 hover:text-gray-700 dark:hover:bg-slate-300 dark:hover:text-slate-900"
-                style={{ textDecoration: role === currentRole ? "underline" : "none" }}
+                style={{ textDecoration: role === user.role ? "underline" : "none" }}
               >{role}</button>
             )
           }

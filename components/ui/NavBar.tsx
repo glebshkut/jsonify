@@ -1,21 +1,21 @@
 "use client"
+import ThemeSwitcher from "@/components/helpers/ThemeSwitcher";
+import Icon from "@/components/ui/Icon";
+import { routes } from "@/lib/routes";
+import { User } from "@prisma/client";
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useState } from "react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 import { BiExit } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import RoleModal from "./RoleModal";
-import Link from "next/link";
-import { routes } from "@/lib/routes";
-import { useAppSelector } from "@/components/store/hooks";
-import { getUserRole } from "@/components/selectors/getUserRole";
-import ThemeSwitcher from "@/components/helpers/ThemeSwitcher";
-import Icon from "@/components/ui/Icon";
 
 export default function NavBar() {
   const { data: session } = useSession();
+  const user = useMemo(() => session?.user as User, [session]);
+  const role = useMemo(() => user?.role, [user]);
   const [roleModal, setRoleModalOpen] = useState(false);
-  const role = useAppSelector(getUserRole)
 
   const handleRoleClick = () => {
     setRoleModalOpen(true);
@@ -28,7 +28,6 @@ export default function NavBar() {
       </Link>
     )
   ));
-
 
   return (
     <div className="bg-blue-500 dark:bg-blue-800 flex flex-row justify-between items-center px-5" style={{ height: "var(--navbar-height)" }}>

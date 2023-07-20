@@ -1,20 +1,16 @@
 "use client"
-import { getUserRole } from "@/components/selectors/getUserRole";
-import { useAppSelector } from '@/components/store/hooks';
-import { useGetUserInfo } from "@/components/store/hooks/useGetUserInfo";
+import { User } from "@prisma/client";
 import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useMemo } from "react";
 import { BsGithub } from "react-icons/bs";
 
 export default function MainPage() {
-  const role = useAppSelector(getUserRole)
-  const [isLoading, setIsLoading] = useState(true);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const user = useMemo(() => session?.user as User, [session]);
 
-  useGetUserInfo(session, () => {
-    setIsLoading(false);
-  });
-
+  if (status === "loading") {
+    return <p>Loading....</p>;
+  }
 
   return (
     <div className="h-full flex flex-col justify-center items-center gap-5">
@@ -25,8 +21,8 @@ export default function MainPage() {
         </>
         :
         <>
-          <p className="text-xl">Welcome {session.user?.name}!</p>
-          {role && <p>Your role is {role}</p>}
+          <p className="text-xl">Welcome {user?.name}!</p>
+          {user && <p>Your role is {user?.role}</p>}
         </>
       }
     </div>
