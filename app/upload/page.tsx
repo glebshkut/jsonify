@@ -1,5 +1,5 @@
 "use client";
-
+import "./upload.css";
 import { UploadButton } from "@/components/utils/uploadthing";
 import { useAppSelector } from "@/components/store/hooks";
 import { getUserRole } from "@/components/selectors/getUserRole";
@@ -43,7 +43,7 @@ export default function Home() {
       />
       {uploadData && <div className="flex flex-col items-center justify-center gap-3">
         <h1 className="text-2xl">{uploadData.message}</h1>
-        <Link className="px-3 py-1 text-lg rounded-lg bg-blue-500 hover:bg-red-300" href={uploadData.url} target="_blank">View Your File</Link>
+        <Link className="px-3 py-1 text-lg underline text-blue-600 dark:text-blue-400 dark:hover:text-blue-300" href={uploadData.url} target="_blank">View Your File</Link>
       </div>}
     </main>
   );
