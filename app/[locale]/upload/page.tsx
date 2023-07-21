@@ -65,7 +65,7 @@ export default function UploadPage() {
         }}
       />
       {uploadData && <div className="flex flex-col items-center justify-center gap-3">
-        <h1 className="text-2xl">{t("fileUploadedMessage")}</h1>
+        <h1 className="text-2xl text-center">{t("fileUploadedMessage")}</h1>
         <Link className="px-3 py-1 text-lg underline text-blue-600 dark:text-blue-400 dark:hover:text-blue-300" href={uploadData.url} target="_blank">{t("viewFileMessage")}</Link>
       </div>}
     </main>
